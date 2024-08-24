@@ -1,0 +1,23 @@
+:root {
+    margin: 0;
+    border: 0;
+
+    /* Aqui las variables*/
+
+    --ColorPrincipal: #DFAD16;
+    --backgroundPrincipal: #FCFCF7;
+    --boxshadowGral: #928f8a;
+    --boxshadowboton: #252523;
+    --boxshadowbotoninset: #d6ceb3;
+    --boxshadowbotonHover: #FCFCF7; 
+
+
+    font-family: Inter;
+
+
+}
+
+
+body {
+    background-color: var(--backgroundPrincipal);
+}

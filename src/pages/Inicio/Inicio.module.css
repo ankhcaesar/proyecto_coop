@@ -1,0 +1,54 @@
+.containerPrincipal {
+    width: 100%;
+    margin-top: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    & img {
+        width: 150px;
+    }
+}
+
+.nombre{
+    text-align: center;
+}
+
+.nombre h3 {
+    font-size: 30px;
+    margin: 0;
+    font-weight:800;
+    color: var(--ColorPrincipal);
+}
+
+.containerFormulario{
+    width: 90%;
+    margin-top: 30px;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & label{
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 30px;
+    }
+}
+
+.links{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor:pointer;
+    gap: 5px;
+}
