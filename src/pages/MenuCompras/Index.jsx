@@ -1,8 +1,18 @@
 import styles from "./MenuCompras.module.css"
-function MenuCompras (){
-    return(
+import { useContext } from "react"
+import { GlobalContext } from "../../context/GlobalContext"
+import Header from "../../components/Header/Index"
+function MenuCompras() {
+
+    const { } = useContext(GlobalContext)
+    return (
         <>
-        
+            <Header
+                titulo="Menú Compras"
+            />
+            
+            <p>menucompras</p>
+            <p>{ }</p>
         </>
     )
 }

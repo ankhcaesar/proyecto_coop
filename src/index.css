@@ -1,6 +1,5 @@
 :root {
-    margin: 0;
-    border: 0;
+
 
     /* Aqui las variables*/
 
@@ -20,4 +19,6 @@
 
 body {
     background-color: var(--backgroundPrincipal);
+    margin: 0px;
+    border: 0px;
 }

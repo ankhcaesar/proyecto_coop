@@ -51,7 +51,7 @@ function App() {
 
 
    
-    // Resto de tu componente
+    
     return (
         <div>
             {/* Tu interfaz de usuario */}

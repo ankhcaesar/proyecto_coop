@@ -1,10 +1,10 @@
-import styles from "./Component.module.css"
+import styles from "./Container.module.css"
 
-function Component({ children }) {
+function Container({ children }) {
     return (
         <section className={styles.containerContainer}>
             {children}
         </section>
     )
 }
-export default Component
+export default Container

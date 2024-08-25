@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styles from "./Botton.module.css"
 
 function Botton(props) {
@@ -6,6 +7,8 @@ function Botton(props) {
         <button
             className={styles.boton}
             type={props.type}
+            onClick={props.onClick}
+            
         >{props.label}
         </button>
 

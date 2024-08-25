@@ -3,13 +3,32 @@ import logo from "/Img/logo.svg"
 import InputForm from "../../components/InputForm/Index"
 import Botton from "../../components/Botton/Botton"
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
 
 function Inicio() {
 
-function manejarEnvio(e){
-    e.preventDefault();
+    const { setPnvoUsrOlvClv,
+
+        usuarioIng, setUsuarioIng,
+        contrasenaIng, setContrasenaIng,
+        limpiarInputIng,
+        manejarCambiosInput,
+
+    } = useContext(GlobalContext)
+
+    function manejarEnvio(e) {
+        e.preventDefault();
+
+        let datosAEnviar = {
+            usuarioIng,
+            contrasenaIng 
+    }
+    /**aqui enviar datos login(datosAEnviar) */
+    limpiarInputIng();
 }
+
 
     return (
         <section className={styles.containerPrincipal}>
@@ -24,36 +43,44 @@ function manejarEnvio(e){
 
             </div>
             <div className={styles.containerFormulario}>
-                <form 
-                className={styles.formulario}
-                onSubmit={manejarEnvio}
+                <form
+                    className={styles.formulario}
+                    onSubmit={manejarEnvio}
                 >
                     <label>Nombre de usuario</label>
                     <InputForm
-                        name="usuario"
-                        placeholder="Ingresa tu usuario..."
+                        name="usuarioIng"
+                        placeholder="Ingresa tu usuario"
                         type="text"
+                        value={usuarioIng}
+                        updatevalue={setUsuarioIng}
                         required={true}
                     />
                     <label>Contraseña</label>
                     <InputForm
-                        name="contraseña..."
+                        name="contraseñaIng"
                         placeholder="Ingresa tu contraseña"
+                        value={contrasenaIng}
+                        updatevalue={setContrasenaIng}
                         type="password"
+                        autocomplete="current-password"
                         required={true}
                     />
 
-                    <Botton
-                    name="botonEnvio"
-                    label="Ingresar"
-                    type="submit"
+                    <Link to="/menucompras">
+                        <Botton
+                            name="botonEnvio"
+                            label="Ingresar"
 
-                    />
+                            type="submit"
+                            destino="MenuCompras"
+                        />
+                    </Link>
                 </form>
                 <div className={styles.links}>
-                    <Link > Nuevo usuario
+                    <Link to="/NuevoUsuario" onClick={() => setPnvoUsrOlvClv("NuevoUsuario")}> Nuevo usuario
                     </Link>
-                    <Link > Olvide la contraseña
+                    <Link to="/CambioClave" onClick={() => setPnvoUsrOlvClv("CambioClave")}> Olvide la contraseña
                     </Link>
 
                 </div>

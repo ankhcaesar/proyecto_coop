@@ -1,17 +1,16 @@
-
 import { Outlet } from "react-router-dom"
 import Container from "../../components/Container/Index"
+import GlobalContextProvider from "../../context/GlobalContext"
 
+function Home() {
 
-function Home (){
-
-    return(
+    return (
         <main>
-        <Container>
-            <Outlet/>
-        </Container>    
-        
-        
+            <GlobalContextProvider>
+                <Container>
+                    <Outlet />
+                </Container>
+            </GlobalContextProvider>
         </main>
     )
 }

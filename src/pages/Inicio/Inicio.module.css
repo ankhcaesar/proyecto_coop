@@ -16,39 +16,40 @@
     }
 }
 
-.nombre{
+.nombre {
     text-align: center;
 }
 
 .nombre h3 {
     font-size: 30px;
     margin: 0;
-    font-weight:800;
+    font-weight: 800;
     color: var(--ColorPrincipal);
 }
 
-.containerFormulario{
-    width: 90%;
-    margin-top: 30px;
+.containerFormulario {
+    width: 300px;
+    margin-top: 10px;
 }
 
-.formulario{
+.formulario {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    & label{
+    gap: 20px;
+    
+    & label {
+        align-self: flex-start;
         font-size: 18px;
         font-weight: bold;
-        margin-top: 30px;
     }
 }
 
-.links{
+.links {
     margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor:pointer;
+    cursor: pointer;
     gap: 5px;
 }
