@@ -1,7 +1,45 @@
 import { createContext, useState } from "react"
 
+/**errores formularios */
+export const typeError = [
+    "valueMissing",
+    "typeMismatch",
+    "tooShort",
+    "tooLong",
+    "patternMismatch",
+];
+export const messages = {
+    /**igreso */
+    usuarioIng: {
+        valueMissing: "Debe ingresar el usuario",
+        tooShort: "el usuario ingresado es demasiado corto"
+    },
+    contraseñaIng: {
+        valueMissing: "debe ingresar la contraseña",
+        tooShort: "la contraseña ingresada es demasiado corta",
+        tooLong: "la contraseña ingresada es demasiado larga"
+    },
+
+    /**nuevo usuario */
+    NombreyApellido: {
+        valueMissing: "Debe ingresar su nombre y apellido",
+        tooShort: "el nombre ingresado es demasiado corto"
+    },
+
+
+
+}
+
+
+
 export const GlobalContext = createContext();
 function GlobalContextProvider({ children }) {
+
+
+
+
+
+
 
 
     /** ingreso */
@@ -57,6 +95,7 @@ function GlobalContextProvider({ children }) {
     /** Manejar Cambios en ingresos */
     const manejarCambiosInput = (name, value) => {
         switch (name) {
+            
             /**datos nuevo usuario */
             case "nombreyApellido":
                 setNombreyApellidoNvo(value);
