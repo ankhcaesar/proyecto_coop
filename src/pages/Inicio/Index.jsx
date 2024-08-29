@@ -27,11 +27,11 @@ function Inicio() {
 
         let datosAEnviar = {
             usuarioIng,
-            contrasenaIng 
-    }
-    navigate("/menucompras")
-    /**aqui enviar datos login(datosAEnviar) */
-    limpiarInputIng();
+            contrasenaIng
+        }
+        navigate("/menucompras")
+        /**aqui enviar datos login(datosAEnviar) */
+        limpiarInputIng();
 
     }
 
@@ -72,28 +72,24 @@ function Inicio() {
                         autocomplete="current-password"
                         required={true}
                     />
-
-
+                    <div className={styles.botton}>
                         <Botton
                             name="botonEnvio"
                             label="Ingresar"
                             type="submit"
                         />
-                    
+                    </div>
+
                 </form>
                 <div className={styles.links}>
                     <Link to="/NuevoUsuario" onClick={() => setPnvoUsrOlvClv("NuevoUsuario")}> Nuevo usuario
                     </Link>
                     <Link to="/CambioClave" onClick={() => setPnvoUsrOlvClv("CambioClave")}> Olvide la contraseña
                     </Link>
-
                 </div>
-
             </div>
-            
+
         </section>
     )
 }
 export default Inicio
-
-

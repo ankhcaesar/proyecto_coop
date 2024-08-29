@@ -5,6 +5,7 @@ import Header from "../../components/Header/Index"
 import InputForm from "../../components/InputForm/Index"
 import Botton from "../../components/Botton/Index"
 import PopUp from "../../components/PopUp/Index"
+import PopUp2 from "../../components/PopUp2/Index"
 import { useNavigate } from "react-router-dom"
 
 function NvoUsrOlvClv() {
@@ -14,7 +15,11 @@ function NvoUsrOlvClv() {
         pnvoUsrOlvClv,
         limpiarInputNvo,
         manejarCambiosInput,
+
         popUp, setPopUp,
+        popUp2,
+        limpiarPopUp,
+
 
         nombreyApellidoNvo, setNombreyApellidoNvo,
         cursoNvo, setCursoNvo,
@@ -54,17 +59,16 @@ function NvoUsrOlvClv() {
         /** manejo del Popup hasta colocar base de datos, despues borrar y reemplazar con el codigo indicado antes de cerrar el ultimo section */
 
         setPopUp({
-            show: true
+            show: true,
+            type: "att",
+            message: " Nuevo usuario registrado con exito",
+            from: "MSJ"
+
+
         });
 
         setTimeout(() => {
-            setPopUp({
-                show: false,
-                message: "",
-                type: "",
-                overlay: false,
-                origen:""
-            });
+            limpiarPopUp(1);
             navigate("/")
         }, 3000);
 
@@ -82,9 +86,12 @@ function NvoUsrOlvClv() {
         }
         /**aqui cambiocontraseña(datosAEnviar) */
 
-        /** manejo del Popup hasta colocar base de datos, despues borrar y reemplazar con el codigo indicado antes de cerrar el ultimo section */
         setPopUp({
-            show: true
+            show: true,
+            type: "att",
+            message: "Ingrese el codigo enviado",
+            zeIndex: "98",
+            from: "cambiocontrasena"
         });
 
         limpiarInputCc();
@@ -192,12 +199,13 @@ function NvoUsrOlvClv() {
                             </div>
                         </form>
                     </div>
-                    {popUp.show && <PopUp message={"Ingreso al Menu compras sin chequear login"} type={"ok"} origen={"NN"}/>}
 
                 </section>
 
-                /**seccion cambio de clave */
+
                 :
+
+                /**seccion cambio de clave */
                 <section className={styles.ContainerCambioContraseña}>
                     <Header
                         titulo="Cambio de Contraseña"
@@ -244,10 +252,11 @@ function NvoUsrOlvClv() {
                             </div>
                         </form>
                     </div>
-                    {popUp.show && <PopUp message={"revise su mail/whatsapp "} type={"att"} overlay={true} origen={"cambiocontrasena"}/>}
                 </section>
 
             }
+            {popUp.show && <PopUp message={popUp.message} type={popUp.type} zeIndex={popUp.zeIndex} from={popUp.from} />}
+            {popUp2.show && <PopUp2 message={popUp2.message} type={popUp2.type} zeIndex={popUp2.zeIndex} from={popUp2.from} />}
 
         </>
     )

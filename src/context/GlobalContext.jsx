@@ -24,7 +24,7 @@ function GlobalContextProvider({ children }) {
     const [whatsappCc, setWhatsappCc] = useState("")
     const [emailCc, setEmailCc] = useState("")
     const [codigoVerif, setcodigoVerif] = useState("")
-    const [nuevacontrasena, setNuevacontrasena]= useState("")
+    const [nuevacontrasena, setNuevacontrasena] = useState("")
 
     const limpiarInputCc = () => {
         setWhatsappCc("");
@@ -99,12 +99,34 @@ function GlobalContextProvider({ children }) {
 
 
     //* Popup */
-    const [popUp, setPopUp] = useState({ show: false, message:"", type:"", overlay:false, origen:"" });
-    
-   //* Popup2 */
-   const [popUp2, setPopUp2] = useState({ show: false, message:"", type:"", overlay:false, origen:"" });
+    const [popUp, setPopUp] = useState({ show: false, message: "", type: "", zeIndex: "", from: "" });
 
-   
+    //* Popup2 */
+    const [popUp2, setPopUp2] = useState({ show: false, message: "", type: "", zeIndex: "", from: "" });
+
+
+    const limpiarPopUp = (N) => {
+
+        N === 1 ?
+            setPopUp({
+                show: false,
+                message: "",
+                type: "",
+                from: "",
+                zeIndex: ""
+            })
+            :
+            setPopUp2({
+                show: false,
+                message: "",
+                type: "",
+                from: "",
+                zeIndex: ""
+            })
+    }
+
+
+
     return (
         <GlobalContext.Provider value={
 
@@ -118,6 +140,7 @@ function GlobalContextProvider({ children }) {
 
                 popUp, setPopUp,
                 popUp2, setPopUp2,
+                limpiarPopUp,
 
 
 

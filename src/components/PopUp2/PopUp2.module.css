@@ -1,5 +1,5 @@
 .PopUpContainer {
-    z-index: 99;
+    z-index: 97;
     width: 80%;
     position: fixed;
     top: 0;
@@ -27,7 +27,6 @@
 .icono{
     height: 60px;
 }
-
 
 .formularioCodigoVerif{
     display: flex;

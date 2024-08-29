@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 
 .logo {
@@ -36,14 +37,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    
+
     & label {
         align-self: flex-start;
         font-size: 18px;
         font-weight: bold;
+        margin-top: 20px;
+    }
+
+    & .botton {
+        margin-top: 20px;
     }
 }
+
+
 
 .links {
     margin-top: 30px;

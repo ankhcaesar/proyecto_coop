@@ -9,13 +9,14 @@ import { GlobalContext } from "../../context/GlobalContext"
 import { useNavigate } from "react-router-dom"
 
 
-function PopUp2({ message, type, overlay, origen }) {
+function PopUp2({ type, message, zeIndex, from }) {
     const navigate = useNavigate();
     const {
         nuevacontrasena, setNuevacontrasena,
         limpiarInputCc,
-        setPopUp2,
-        setPopUp
+
+        setPopUp,
+        limpiarPopUp,
 
     } = useContext(GlobalContext)
 
@@ -50,32 +51,27 @@ function PopUp2({ message, type, overlay, origen }) {
         let datosAEnviar = {
             nuevacontrasena
         }
+        limpiarPopUp(2);
 
         setPopUp({
-            show: false,
-            message: "",
-            type: "",
-            overlay: false,
-            origen: ""
+            show: true,
+            type: "att",
+            message: " contraseña cambiada con exito",
+            from: "MSJ",
+            zeIndex: "99"
         });
-
-        setPopUp2({
-            show: false,
-            message: "",
-            type: "",
-            overlay: false,
-            origen: ""
-        });
-
-        navigate("/")
+        setTimeout(() => {
+            limpiarPopUp(1)
+            navigate("/")
+        }, 3000);
         limpiarInputCc();
     }
 
     return (
         <>
 
-            {origen === "codigoVerif" &&
-                <div className={styles.overlay}>
+            {from === "codigoVerif" &&
+                <div className={styles.overlay} style={{ zIndex: `${zeIndex}` }}>
                     <div className={styles.PopUpContainer}>
                         <img className={styles.icono} src={icon} alt={`icono de ${type}`} />
                         <p className={styles.mensaje}>{message}</p>

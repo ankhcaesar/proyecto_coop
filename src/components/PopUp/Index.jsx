@@ -4,15 +4,13 @@ import iconAtt from "../../../public/Icons/exclamacion-naranja.svg"
 import iconOk from "../../../public/Icons/check.svg"
 import InputForm from "../InputForm/Index"
 import Botton from "../Botton/Index"
-import PopUp2 from "../PopUp2/Index"
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext"
 
-function PopUp({ message, type, overlay, origen }) {
+function PopUp({ type, message, zeIndex, from }) {
     const {
         codigoVerif, setcodigoVerif,
         limpiarInputCc,
-        popUp2,
         setPopUp2,
 
     } = useContext(GlobalContext)
@@ -25,6 +23,7 @@ function PopUp({ message, type, overlay, origen }) {
             switch (tipo) {
                 case "ok":
                     setIcon(iconOk)
+
                     break;
 
                 case "error":
@@ -49,29 +48,29 @@ function PopUp({ message, type, overlay, origen }) {
         }
         /**aqui chequear codigoverif(datosAEnviar) */
 
-        setPopUp2({ show: true })
-
-
-
-
-
-
+        setPopUp2({
+            show: true,
+            from: "codigoVerif",
+            type: "att",
+            message: " Ingrese el codigo"
+        });
         limpiarInputCc();
     }
 
     return (
         <>
-
-            {origen === "NN" &&
-                <div className={styles.PopUpContainer}>
+            {from === "MSJ" &&
+                <div className={styles.PopUpContainer} style={{ zIndex: `${zeIndex}` }}>
                     <img className={styles.icono} src={icon} alt={`icono de ${type}`} />
                     <p className={styles.mensaje}>{message}</p>
+                    <span className={styles.loader}></span>
                 </div>
             }
 
-            {origen === "cambiocontrasena" &&
+            {from === "cambiocontrasena" &&
                 <div className={styles.overlay}>
-                    <div className={styles.PopUpContainer}>
+                    <div className={styles.PopUpContainer} style={{ zIndex: `${zeIndex}` }}>
+
                         <img className={styles.icono} src={icon} alt={`icono de ${type}`} />
                         <p className={styles.mensaje}>{message}</p>
                         <form
@@ -96,16 +95,9 @@ function PopUp({ message, type, overlay, origen }) {
                             </div>
                         </form>
                     </div>
-                    {popUp2.show && <PopUp2 message={"Ingrese la nueva contraseña"} type={"att"} overlay={true} origen={"codigoVerif"} />}
-
                 </div>
             }
         </>
     )
 }
 export default PopUp
-
-
-/*
- * 
-*/
