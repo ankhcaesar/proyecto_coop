@@ -8,7 +8,7 @@ function GlobalContextProvider({ children }) {
     const [usuarioIng, setUsuarioIng] = useState("")
     const [contrasenaIng, setContrasenaIng] = useState("")
 
-    /**limpiar inputs nuevo usuario  */
+    /**limpiar inputs usuario  ingreso */
     const limpiarInputIng = () => {
         setUsuarioIng("");
         setContrasenaIng("");
@@ -23,11 +23,13 @@ function GlobalContextProvider({ children }) {
 
     const [whatsappCc, setWhatsappCc] = useState("")
     const [emailCc, setEmailCc] = useState("")
-
+    const [codigoVerif, setcodigoVerif] = useState("")
+    const [nuevacontrasena, setNuevacontrasena]= useState("")
 
     const limpiarInputCc = () => {
         setWhatsappCc("");
         setEmailCc("");
+        setcodigoVerif("")
     };
 
 
@@ -52,7 +54,7 @@ function GlobalContextProvider({ children }) {
     };
 
 
-    /** Manejar nuevos ingresos */
+    /** Manejar Cambios en ingresos */
     const manejarCambiosInput = (name, value) => {
         switch (name) {
             /**datos nuevo usuario */
@@ -96,6 +98,13 @@ function GlobalContextProvider({ children }) {
     };
 
 
+    //* Popup */
+    const [popUp, setPopUp] = useState({ show: false, message:"", type:"", overlay:false, origen:"" });
+    
+   //* Popup2 */
+   const [popUp2, setPopUp2] = useState({ show: false, message:"", type:"", overlay:false, origen:"" });
+
+   
     return (
         <GlobalContext.Provider value={
 
@@ -106,6 +115,9 @@ function GlobalContextProvider({ children }) {
 
 
                 pnvoUsrOlvClv, setPnvoUsrOlvClv,
+
+                popUp, setPopUp,
+                popUp2, setPopUp2,
 
 
 
@@ -121,6 +133,8 @@ function GlobalContextProvider({ children }) {
 
                 whatsappCc, setWhatsappCc,
                 emailCc, setEmailCc,
+                codigoVerif, setcodigoVerif,
+                nuevacontrasena, setNuevacontrasena,
                 limpiarInputCc
 
             }

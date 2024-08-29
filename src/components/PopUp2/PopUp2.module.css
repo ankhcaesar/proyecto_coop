@@ -1,20 +1,10 @@
-.overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #25252386
-}
-
 .PopUpContainer {
     z-index: 99;
     width: 80%;
     position: fixed;
     top: 0;
     left: 5%;
-
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,12 +24,12 @@
     padding: 40px 20px;
 }
 
-.icono {
+.icono{
     height: 60px;
 }
 
 
-.formularioCodigoVerif {
+.formularioCodigoVerif{
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -47,7 +37,7 @@
     width: 90%;
 }
 
-.botton {
+.botton{
     align-self: center;
     margin-top: 10px;
 }

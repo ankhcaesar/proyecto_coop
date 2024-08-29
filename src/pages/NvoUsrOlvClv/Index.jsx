@@ -3,14 +3,18 @@ import { useContext, useEffect } from "react"
 import { GlobalContext } from "../../context/GlobalContext"
 import Header from "../../components/Header/Index"
 import InputForm from "../../components/InputForm/Index"
-import Botton from "../../components/Botton/Botton"
+import Botton from "../../components/Botton/Index"
+import PopUp from "../../components/PopUp/Index"
+import { useNavigate } from "react-router-dom"
 
 function NvoUsrOlvClv() {
+
 
     const {
         pnvoUsrOlvClv,
         limpiarInputNvo,
         manejarCambiosInput,
+        popUp, setPopUp,
 
         nombreyApellidoNvo, setNombreyApellidoNvo,
         cursoNvo, setCursoNvo,
@@ -25,9 +29,15 @@ function NvoUsrOlvClv() {
 
 
 
+
     } = useContext(GlobalContext)
 
     /** nuevo usuario */
+    const navigate = useNavigate();
+
+
+
+
     const manejarEnvioNvo = (e) => {
         e.preventDefault();
 
@@ -40,6 +50,26 @@ function NvoUsrOlvClv() {
             contrasenaNvo
         }
         /**aqui crearUsuario(datosAEnviar) */
+
+        /** manejo del Popup hasta colocar base de datos, despues borrar y reemplazar con el codigo indicado antes de cerrar el ultimo section */
+
+        setPopUp({
+            show: true
+        });
+
+        setTimeout(() => {
+            setPopUp({
+                show: false,
+                message: "",
+                type: "",
+                overlay: false,
+                origen:""
+            });
+            navigate("/")
+        }, 3000);
+
+
+
         limpiarInputNvo();
     }
     /** Cambio de clave */
@@ -51,9 +81,14 @@ function NvoUsrOlvClv() {
             emailCc,
         }
         /**aqui cambiocontraseña(datosAEnviar) */
+
+        /** manejo del Popup hasta colocar base de datos, despues borrar y reemplazar con el codigo indicado antes de cerrar el ultimo section */
+        setPopUp({
+            show: true
+        });
+
         limpiarInputCc();
     }
-
 
 
     /**para los nuevos ingresos */
@@ -147,7 +182,6 @@ function NvoUsrOlvClv() {
                                     name="botonEnvio"
                                     label="Registrar"
                                     type="submit"
-                                    destino=""
                                 />
                                 <Botton
                                     name="limpiar"
@@ -158,6 +192,8 @@ function NvoUsrOlvClv() {
                             </div>
                         </form>
                     </div>
+                    {popUp.show && <PopUp message={"Ingreso al Menu compras sin chequear login"} type={"ok"} origen={"NN"}/>}
+
                 </section>
 
                 /**seccion cambio de clave */
@@ -208,6 +244,7 @@ function NvoUsrOlvClv() {
                             </div>
                         </form>
                     </div>
+                    {popUp.show && <PopUp message={"revise su mail/whatsapp "} type={"att"} overlay={true} origen={"cambiocontrasena"}/>}
                 </section>
 
             }
@@ -216,3 +253,4 @@ function NvoUsrOlvClv() {
     )
 }
 export default NvoUsrOlvClv
+

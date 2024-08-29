@@ -1,20 +1,24 @@
 import styles from "./Inicio.module.css"
 import logo from "/Img/logo.svg"
 import InputForm from "../../components/InputForm/Index"
-import Botton from "../../components/Botton/Botton"
-import { Link } from "react-router-dom";
+import Botton from "../../components/Botton/Index"
+import PopUp from "../../components/PopUp/Index"
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
 
 function Inicio() {
 
+    const navigate = useNavigate();
     const { setPnvoUsrOlvClv,
 
         usuarioIng, setUsuarioIng,
         contrasenaIng, setContrasenaIng,
         limpiarInputIng,
         manejarCambiosInput,
+
+        popUp
 
     } = useContext(GlobalContext)
 
@@ -25,9 +29,11 @@ function Inicio() {
             usuarioIng,
             contrasenaIng 
     }
+    navigate("/menucompras")
     /**aqui enviar datos login(datosAEnviar) */
     limpiarInputIng();
-}
+
+    }
 
 
     return (
@@ -67,15 +73,13 @@ function Inicio() {
                         required={true}
                     />
 
-                    <Link to="/menucompras">
+
                         <Botton
                             name="botonEnvio"
                             label="Ingresar"
-
                             type="submit"
-                            destino="MenuCompras"
                         />
-                    </Link>
+                    
                 </form>
                 <div className={styles.links}>
                     <Link to="/NuevoUsuario" onClick={() => setPnvoUsrOlvClv("NuevoUsuario")}> Nuevo usuario
@@ -86,7 +90,10 @@ function Inicio() {
                 </div>
 
             </div>
+            
         </section>
     )
 }
 export default Inicio
+
+

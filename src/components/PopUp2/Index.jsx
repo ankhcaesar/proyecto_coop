@@ -1,21 +1,24 @@
-import styles from "./PopUp.module.css"
+import styles from "./PopUp2.module.css"
 import iconError from "../../../public/Icons/exclamacion-rojo.svg"
 import iconAtt from "../../../public/Icons/exclamacion-naranja.svg"
 import iconOk from "../../../public/Icons/check.svg"
 import InputForm from "../InputForm/Index"
 import Botton from "../Botton/Index"
-import PopUp2 from "../PopUp2/Index"
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext"
+import { useNavigate } from "react-router-dom"
 
-function PopUp({ message, type, overlay, origen }) {
+
+function PopUp2({ message, type, overlay, origen }) {
+    const navigate = useNavigate();
     const {
-        codigoVerif, setcodigoVerif,
+        nuevacontrasena, setNuevacontrasena,
         limpiarInputCc,
-        popUp2,
         setPopUp2,
+        setPopUp
 
     } = useContext(GlobalContext)
+
 
 
     /**manejo del icono */
@@ -42,49 +45,58 @@ function PopUp({ message, type, overlay, origen }) {
     }, [])
 
     /**seccion cambiocontraseña */
-    const manejarEnvioCc = (e) => {
+    const manejarEnvioIc = (e) => {
         e.preventDefault();
         let datosAEnviar = {
-            codigoVerif
+            nuevacontrasena
         }
-        /**aqui chequear codigoverif(datosAEnviar) */
 
-        setPopUp2({ show: true })
+        setPopUp({
+            show: false,
+            message: "",
+            type: "",
+            overlay: false,
+            origen: ""
+        });
 
+        setPopUp2({
+            show: false,
+            message: "",
+            type: "",
+            overlay: false,
+            origen: ""
+        });
 
-
-
-
-
+        navigate("/")
         limpiarInputCc();
     }
 
     return (
         <>
 
-            {origen === "NN" &&
-                <div className={styles.PopUpContainer}>
-                    <img className={styles.icono} src={icon} alt={`icono de ${type}`} />
-                    <p className={styles.mensaje}>{message}</p>
-                </div>
-            }
-
-            {origen === "cambiocontrasena" &&
+            {origen === "codigoVerif" &&
                 <div className={styles.overlay}>
                     <div className={styles.PopUpContainer}>
                         <img className={styles.icono} src={icon} alt={`icono de ${type}`} />
                         <p className={styles.mensaje}>{message}</p>
                         <form
                             className={styles.formularioCodigoVerif}
-                            onSubmit={manejarEnvioCc}
+                            onSubmit={manejarEnvioIc}
                         >
                             <label>Codigo</label>
                             <InputForm
-                                name="codigoVerif"
-                                placeholder="Ingresa el codigo"
-                                type="text"
-                                value={codigoVerif}
-                                updatevalue={setcodigoVerif}
+                                name="nuevaClave"
+                                placeholder="Ingresa la contraseña"
+                                type="password"
+                                updatevalue={setNuevacontrasena}
+                                required={false}
+                            />
+                            <InputForm
+                                name="nuevaClave2"
+                                placeholder="repite la contraseña"
+                                type="password"
+                                value={nuevacontrasena}
+                                updatevalue={setNuevacontrasena}
                                 required={true}
                             />
                             <div className={styles.botton}>
@@ -96,16 +108,9 @@ function PopUp({ message, type, overlay, origen }) {
                             </div>
                         </form>
                     </div>
-                    {popUp2.show && <PopUp2 message={"Ingrese la nueva contraseña"} type={"att"} overlay={true} origen={"codigoVerif"} />}
-
                 </div>
             }
         </>
     )
 }
-export default PopUp
-
-
-/*
- * 
-*/
+export default PopUp2
