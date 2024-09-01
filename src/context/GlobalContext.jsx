@@ -25,9 +25,6 @@ export const messages = {
         valueMissing: "Debe ingresar su nombre y apellido",
         tooShort: "el nombre ingresado es demasiado corto"
     },
-
-
-
 }
 
 
