@@ -1,7 +1,7 @@
 import styles from "./PopUp2.module.css"
-import iconError from "../../../public/Icons/exclamacion-rojo.svg"
-import iconAtt from "../../../public/Icons/exclamacion-naranja.svg"
-import iconOk from "../../../public/Icons/check.svg"
+import iconError from "/Icons/exclamacion-rojo.svg"
+import iconAtt from "/Icons/exclamacion-naranja.svg"
+import iconOk from "/Icons/check.svg"
 import InputForm from "../InputForm/Index"
 import Botton from "../Botton/Index"
 import { useContext, useEffect, useState } from "react";

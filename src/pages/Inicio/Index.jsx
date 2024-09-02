@@ -3,20 +3,22 @@ import logo from "/Img/logo.svg"
 import InputForm from "../../components/InputForm/Index"
 import Botton from "../../components/Botton/Index"
 import PopUp from "../../components/PopUp/Index"
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
 
 function Inicio() {
 
-    const navigate = useNavigate();
+
     const { setPnvoUsrOlvClv,
 
         usuarioIng, setUsuarioIng,
         contrasenaIng, setContrasenaIng,
         limpiarInputIng,
-        manejarCambiosInput,
+
+        navigate,
+
 
         popUp
 

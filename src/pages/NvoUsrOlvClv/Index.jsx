@@ -6,77 +6,61 @@ import InputForm from "../../components/InputForm/Index"
 import Botton from "../../components/Botton/Index"
 import PopUp from "../../components/PopUp/Index"
 import PopUp2 from "../../components/PopUp2/Index"
-import { useNavigate } from "react-router-dom"
+
 
 function NvoUsrOlvClv() {
 
 
     const {
         pnvoUsrOlvClv,
-        limpiarInputNvo,
-        manejarCambiosInput,
+
+        
 
         popUp, setPopUp,
         popUp2,
         limpiarPopUp,
 
+        limpiarInput,
 
-        nombreyApellidoNvo, setNombreyApellidoNvo,
-        cursoNvo, setCursoNvo,
-        whatsappNvo, setWhatsappNvo,
-        emailNvo, setEmailNvo,
-        usuarioNvo, setUsuarioNvo,
-        contrasenaNvo, setContrasenaNv,
+        nombreyapellido, setNombreyapellido,
+                curso, setCurso,
+                whatsapp, setWhatsapp,
+                email, setEmail,
+                usuario, setUsuario,
+                contrasena, setContrasena,
+                permiso,setPermiso,
 
         whatsappCc, setWhatsappCc,
         emailCc, setEmailCc,
-        limpiarInputCc
+
+
+        crearUsuario
 
 
 
 
     } = useContext(GlobalContext)
 
-    /** nuevo usuario */
-    const navigate = useNavigate();
-
-
+    /** seccion nuevo usuario */
 
 
     const manejarEnvioNvo = (e) => {
         e.preventDefault();
 
         let datosAEnviar = {
-            nombreyApellidoNvo,
-            cursoNvo,
-            whatsappNvo,
-            emailNvo,
-            usuarioNvo,
-            contrasenaNvo
+            
+            nombreyapellido,
+            curso,
+            whatsapp,
+            email,
+            usuario,
+            contrasena,
+            permiso
         }
-        /**aqui crearUsuario(datosAEnviar) */
-
-        /** manejo del Popup hasta colocar base de datos, despues borrar y reemplazar con el codigo indicado antes de cerrar el ultimo section */
-
-        setPopUp({
-            show: true,
-            type: "att",
-            message: " Nuevo usuario registrado con exito",
-            from: "MSJ"
-
-
-        });
-
-        setTimeout(() => {
-            limpiarPopUp(1);
-            navigate("/")
-        }, 3000);
-
-
-
-        limpiarInputNvo();
+        crearUsuario(datosAEnviar)
+        limpiarInput;
     }
-    /** Cambio de clave */
+    /** seccion Cambio de clave */
     const manejarEnvioCc = (e) => {
         e.preventDefault();
 
@@ -91,22 +75,12 @@ function NvoUsrOlvClv() {
             type: "att",
             message: "Ingrese el codigo enviado",
             zeIndex: "98",
-            from: "cambiocontrasena"
+            from: "completo"
         });
 
-        limpiarInputCc();
+        limpiarInput;
     }
 
-
-    /**para los nuevos ingresos */
-    useEffect(() => {
-        manejarCambiosInput("nombreyApellido", "");
-        manejarCambiosInput("curso", "");
-        manejarCambiosInput("whatsapp", "");
-        manejarCambiosInput("email", "");
-        manejarCambiosInput("usuario", "");
-        manejarCambiosInput("contrasena", "");
-    }, [])
 
 
 
@@ -129,8 +103,8 @@ function NvoUsrOlvClv() {
                                 name="NombreyApellido"
                                 placeholder="Ingresa tu nombre y apellido"
                                 type="text"
-                                value={nombreyApellidoNvo}
-                                updatevalue={setNombreyApellidoNvo}
+                                value={nombreyapellido}
+                                updatevalue={setNombreyapellido}
                                 required={true}
                             />
                             <label>Curso</label>
@@ -138,8 +112,8 @@ function NvoUsrOlvClv() {
                                 name="curso"
                                 placeholder="Ingresa tu curso"
                                 type="text"
-                                value={cursoNvo}
-                                updatevalue={setCursoNvo}
+                                value={curso}
+                                updatevalue={setCurso}
                                 required={true}
                             />
 
@@ -148,8 +122,8 @@ function NvoUsrOlvClv() {
                                 name="whatsapp"
                                 placeholder="Ingresa el nro de Whatsapp"
                                 type="text"
-                                value={whatsappNvo}
-                                updatevalue={setWhatsappNvo}
+                                value={whatsapp}
+                                updatevalue={setWhatsapp}
                                 required={true}
                             />
 
@@ -158,8 +132,8 @@ function NvoUsrOlvClv() {
                                 name="email"
                                 placeholder="Ingresa tu email"
                                 type="email"
-                                value={emailNvo}
-                                updatevalue={setEmailNvo}
+                                value={email}
+                                updatevalue={setEmail}
                                 required={true}
                             />
 
@@ -168,8 +142,8 @@ function NvoUsrOlvClv() {
                                 name="usuario"
                                 placeholder="Ingresa tu usuario"
                                 type="text"
-                                value={usuarioNvo}
-                                updatevalue={setUsuarioNvo}
+                                value={usuario}
+                                updatevalue={setUsuario}
                                 required={true}
                             />
 
@@ -179,8 +153,8 @@ function NvoUsrOlvClv() {
                                 placeholder="Ingresa tu contraseña"
                                 type="password"
                                 autocomplete="current-password"
-                                value={contrasenaNvo}
-                                updatevalue={setContrasenaNv}
+                                value={contrasena}
+                                updatevalue={setContrasena}
                                 required={true}
                             />
 
@@ -194,7 +168,7 @@ function NvoUsrOlvClv() {
                                     name="limpiar"
                                     label="Limpiar"
                                     type="button"
-                                    onClick={limpiarInputNvo}
+                                    onClick={limpiarInput}
                                 />
                             </div>
                         </form>
@@ -208,7 +182,7 @@ function NvoUsrOlvClv() {
                 /**seccion cambio de clave */
                 <section className={styles.ContainerCambioContraseña}>
                     <Header
-                        titulo="Cambio de Contraseña"
+                        titulo="Cambio_de Contraseña"
                     />
                     <div className={styles.containerFormulario}>
                         <form
@@ -247,7 +221,7 @@ function NvoUsrOlvClv() {
                                     name="limpiar"
                                     label="Limpiar"
                                     type="button"
-                                    onClick={limpiarInputCc}
+                                    onClick={limpiarInput}
                                 />
                             </div>
                         </form>

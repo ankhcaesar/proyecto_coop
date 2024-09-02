@@ -1,6 +1,9 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useReducer, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import db from "../db/db"
 
-/**errores formularios */
+/**errores formularios no usado aun
+
 export const typeError = [
     "valueMissing",
     "typeMismatch",
@@ -9,7 +12,7 @@ export const typeError = [
     "patternMismatch",
 ];
 export const messages = {
-    /**igreso */
+    /**igreso
     usuarioIng: {
         valueMissing: "Debe ingresar el usuario",
         tooShort: "el usuario ingresado es demasiado corto"
@@ -20,26 +23,156 @@ export const messages = {
         tooLong: "la contraseña ingresada es demasiado larga"
     },
 
-    /**nuevo usuario */
+    /**nuevo usuario
     NombreyApellido: {
         valueMissing: "Debe ingresar su nombre y apellido",
         tooShort: "el nombre ingresado es demasiado corto"
     },
-
-
-
 }
-
-
+errores formularios no usado aun*/
 
 export const GlobalContext = createContext();
+
+/**base de datos */
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'SET_USUARIOS':
+            return { ...state, usuarios: action.payload };
+            break;
+        case 'SET_ARTICULOS':
+            return { ...state, articulos: action.payload };
+            break;
+        case 'SET_CATEGORIAS':
+            return { ...state, categorias: action.payload };
+            break;
+        case 'SET_SUBCATEGORIAS':
+            return { ...state, subcategorias: action.payload };
+            break;
+        case 'SET_LISTA_PRODUCTOS':
+            return { ...state, lista_productos: action.payload };
+            break;
+        case 'SET_VENTAS':
+            return { ...state, ventas: action.payload };
+            break;
+        case 'SET_HISTORIAL':
+            return { ...state, historial: action.payload };
+            break;
+
+        case 'ERROR':
+            return { ...state, error: action.payload };
+            break;
+
+        default:
+            return state;
+    }
+};
+
+const initialState = {
+    usuarios: [],
+    articulos: [],
+    categorias: [],
+    subcategorias: [],
+    lista_productos: [],
+    ventas: [],
+    historial: [],
+    error: [],
+};
+/**base de datos */
+
+
 function GlobalContextProvider({ children }) {
+/**para la navegacion interna */
+    const navigate = useNavigate();
+
+    /**base de datos */
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    useEffect(() => {
+        const fetchUsuarios = async () => {
+            try {
+                const usuarios = await db.usuarios.toArray();
+                dispatch({ type: 'SET_USUARIOS', payload: usuarios });
+            } catch (error) {
+                showError('error', 'Ocurrió un error al obtener los usuarios');
+            }
+        };
+
+        const fetchArticulos = async () => {
+            try {
+                const articulos = await db.articulos.toArray();
+                dispatch({ type: 'SET_ARTICULOS', payload: articulos });
+            } catch (error) {
+                showError('error', 'Ocurrió un error al obtener los articulos');
+            }
+        };
+
+        const fetchCategorias = async () => {
+            try {
+                const categorias = await db.categorias.toArray();
+                dispatch({ type: 'SET_CATEGORIAS', payload: categorias });
+            } catch (error) {
+                showError('error', 'Ocurrió un error al obtener las categorias');
+            }
+        };
+
+        const fetchSubcategorias = async () => {
+            try {
+                const subcategorias = await db.subcategorias.toArray();
+                dispatch({ type: 'SET_SUBCATEGORIAS', payload: subcategorias });
+            } catch (error) {
+                showError('error', 'Ocurrió un error al obtener las subcategorias');
+            }
+        };
+
+        const fetchLista_productos = async () => {
+            try {
+                const lista_productos = await db.lista_productos.toArray();
+                dispatch({ type: 'SET_LISTA_PRODUCTOS', payload: lista_productos });
+            } catch (error) {
+                showError('error', 'Ocurrió un error al obtener la lista de productos');
+            }
+        };
+
+        const fetchVentas = async () => {
+            try {
+                const ventas = await db.ventas.toArray();
+                dispatch({ type: 'SET_VENTAS', payload: ventas });
+            } catch (error) {
+                showError('error', 'Ocurrió un error al obtener las ventas');
+            }
+        };
+
+        const fetchHistorial = async () => {
+            try {
+                const historial = await db.historial.toArray();
+                dispatch({ type: 'SET_HISTORIAL', payload: historial });
+            } catch (error) {
+                showError('error', 'Ocurrió un error al obtener el historial de ventas');
+            }
+        };
+
+        fetchUsuarios();
+        fetchArticulos();
+        fetchCategorias();
+        fetchSubcategorias();
+        fetchLista_productos();
+        fetchVentas();
+        fetchHistorial();
+    }, []);
+    /**base de datos */
 
 
 
 
 
-
+    /**manejo de errores en la app */
+    const showError = (type, message) => {
+        setPopUp({ show: true, message: "", type: "error", zeIndex: "98", from: "MSJ" });
+        setTimeout(() => {
+            limpiarPopUp(1);
+        }, 3000);
+    };
+    /**manejo de errores en la app */
 
 
     /** ingreso */
@@ -52,100 +185,98 @@ function GlobalContextProvider({ children }) {
         setContrasenaIng("");
     };
 
-
-    /**Nuevo usuario o cambiar clave */
-    const [pnvoUsrOlvClv, setPnvoUsrOlvClv] = useState('')
+    /**Nuevo usuario o cambiar clave*/
 
 
-    /**datos cambiar clave */
+    /**crear usuario */
+    const crearUsuario = async (datosAEnviar) => {
+        let idnuevo = self.crypto.randomUUID();
+        let permisoprovisorio = "usr";
+        const data = {
+            id_usr: idnuevo,
+            nombreyapellido: datosAEnviar.nombreyapellido,
+            curso: datosAEnviar.curso,
+            whatsapp: datosAEnviar.whatsapp,
+            email: datosAEnviar.email,
+            usuario: datosAEnviar.usuario,
+            contrasena: datosAEnviar.contrasena,
+            permiso: permisoprovisorio
+        }
 
-    const [whatsappCc, setWhatsappCc] = useState("")
-    const [emailCc, setEmailCc] = useState("")
-    const [codigoVerif, setcodigoVerif] = useState("")
-    const [nuevacontrasena, setNuevacontrasena] = useState("")
 
-    const limpiarInputCc = () => {
-        setWhatsappCc("");
-        setEmailCc("");
-        setcodigoVerif("")
+        try {
+            const usuarioExistente = await db.usuarios.where('usuario').equals(data.usuario).toArray();
+
+            // Verificar si el usuario ya existe
+            if (usuarioExistente.length > 0) {
+                showError('error', 'El nombre de usuario ya existe.');
+                return;
+            }
+            // Agregar el usuario a la base de datos
+            await db.usuarios.add(data);
+
+            // Mostrar mensaje de éxito
+            setPopUp({
+                show: true,
+                type: "success",
+                message: "Usuario creado exitosamente",
+                from: "MSJ"
+            });
+            setTimeout(() => {
+                limpiarPopUp(1);
+                navigate("/")
+            }, 3000);
+
+        } catch (error) {
+            // Manejar errores
+            console.error("Error al crear usuario:", error);
+            setPopUp({
+                show: true,
+                type: "error",
+                message: "Ocurrió un error al crear el usuario",
+                from: "MSJ"
+            });
+            setTimeout(() => {
+                limpiarPopUp(1);
+            }, 3000);
+        }
     };
-
+    /**crear usuario */
 
 
     /** datos nuevo usuario */
-    const [nombreyApellidoNvo, setNombreyApellidoNvo] = useState("")
-    const [cursoNvo, setCursoNvo] = useState("")
-    const [whatsappNvo, setWhatsappNvo] = useState("")
-    const [emailNvo, setEmailNvo] = useState("")
-    const [usuarioNvo, setUsuarioNvo] = useState("")
-    const [contrasenaNvo, setContrasenaNv] = useState("")
+    const [nombreyapellido, setNombreyapellido] = useState("")
+    const [curso, setCurso] = useState("")
+    const [whatsapp, setWhatsapp] = useState("")
+    const [email, setEmail] = useState("")
+    const [usuario, setUsuario] = useState("")
+    const [contrasena, setContrasena,] = useState("")
+    const [permiso, setPermiso] = useState("")
 
 
-    /**limpiar inputs nuevo usuario  */
-    const limpiarInputNvo = () => {
-        setNombreyApellidoNvo("");
-        setCursoNvo("");
-        setWhatsappNvo("");
-        setEmailNvo("");
-        setUsuarioNvo("");
-        setContrasenaNv("");
+    /** limpiar imputs */
+
+
+
+    const limpiarInput = () => {
+        setNombreyapellido("");
+        setCurso("");
+        setWhatsapp("");
+        setEmail("");
+        setUsuario("");
+        setContrasena("");
     };
 
 
-    /** Manejar Cambios en ingresos */
-    const manejarCambiosInput = (name, value) => {
-        switch (name) {
-            
-            /**datos nuevo usuario */
-            case "nombreyApellido":
-                setNombreyApellidoNvo(value);
-                break;
-
-            case "curso":
-                setCursoNvo(value);
-                break;
-
-            case "whatsapp":
-                setWhatsappNvo(value);
-                break;
-
-            case "email":
-                setEmailNvo(value);
-                break;
-
-            case "usuario":
-                setUsuarioNvo(value);
-                break;
-
-            case "contrasena":
-                setContrasenaNv(value);
-                break;
-
-            /**datos de ingreso */
-            case "usuarioIng":
-                setUsuarioIng(value);
-                break;
-
-            case "contraseñaIng":
-                setContrasenaIng(value);
-                break;
+    /** estado pagina nuevo usuario*/
+    const [pnvoUsrOlvClv, setPnvoUsrOlvClv] = useState();
 
 
-            default:
-                break;
-        }
-    };
-
-
-    //* Popup */
+    /** Popup */
     const [popUp, setPopUp] = useState({ show: false, message: "", type: "", zeIndex: "", from: "" });
-
-    //* Popup2 */
+    /** Popup2 */
     const [popUp2, setPopUp2] = useState({ show: false, message: "", type: "", zeIndex: "", from: "" });
-
-
     const limpiarPopUp = (N) => {
-
         N === 1 ?
             setPopUp({
                 show: false,
@@ -172,32 +303,28 @@ function GlobalContextProvider({ children }) {
             {
                 usuarioIng, setUsuarioIng,
                 contrasenaIng, setContrasenaIng,
-                limpiarInputIng,
 
+                limpiarInput,
 
                 pnvoUsrOlvClv, setPnvoUsrOlvClv,
 
                 popUp, setPopUp,
                 popUp2, setPopUp2,
                 limpiarPopUp,
+                crearUsuario,
 
 
+                nombreyapellido, setNombreyapellido,
+                curso, setCurso,
+                whatsapp, setWhatsapp,
+                email, setEmail,
+                usuario, setUsuario,
+                contrasena, setContrasena,
+                permiso, setPermiso,
 
-                nombreyApellidoNvo, setNombreyApellidoNvo,
-                cursoNvo, setCursoNvo,
-                whatsappNvo, setWhatsappNvo,
-                emailNvo, setEmailNvo,
-                usuarioNvo, setUsuarioNvo,
-                contrasenaNvo, setContrasenaNv,
-                limpiarInputNvo,
-                manejarCambiosInput,
+                navigate,
 
-
-                whatsappCc, setWhatsappCc,
-                emailCc, setEmailCc,
-                codigoVerif, setcodigoVerif,
-                nuevacontrasena, setNuevacontrasena,
-                limpiarInputCc
+                state, dispatch
 
             }
         }>
