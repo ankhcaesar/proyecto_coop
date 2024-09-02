@@ -6,19 +6,15 @@ import InputForm from "../../components/InputForm/Index"
 import Botton from "../../components/Botton/Index"
 import PopUp from "../../components/PopUp/Index"
 import PopUp2 from "../../components/PopUp2/Index"
-
+import CryptoJS from 'crypto-js';
 
 function NvoUsrOlvClv() {
-
 
     const {
         pnvoUsrOlvClv,
 
-        
-
         popUp, setPopUp,
         popUp2,
-        limpiarPopUp,
 
         limpiarInput,
 
@@ -28,16 +24,12 @@ function NvoUsrOlvClv() {
                 email, setEmail,
                 usuario, setUsuario,
                 contrasena, setContrasena,
-                permiso,setPermiso,
+                permiso,
 
         whatsappCc, setWhatsappCc,
         emailCc, setEmailCc,
 
-
         crearUsuario
-
-
-
 
     } = useContext(GlobalContext)
 
@@ -47,6 +39,8 @@ function NvoUsrOlvClv() {
     const manejarEnvioNvo = (e) => {
         e.preventDefault();
 
+        let contrasena1 = CryptoJS.SHA256(contrasena + 16).toString();
+        
         let datosAEnviar = {
             
             nombreyapellido,
@@ -54,8 +48,8 @@ function NvoUsrOlvClv() {
             whatsapp,
             email,
             usuario,
-            contrasena,
-            permiso
+            contrasena1,
+            permiso,
         }
         crearUsuario(datosAEnviar)
         limpiarInput;
@@ -82,9 +76,6 @@ function NvoUsrOlvClv() {
     }
 
 
-
-
-
     return (
         <>
             {pnvoUsrOlvClv === "NuevoUsuario" ?
@@ -93,7 +84,6 @@ function NvoUsrOlvClv() {
                         titulo="Nuevo Usuario"
                     />
                     <div className={styles.containerFormulario}>
-
                         <form
                             className={styles.formularioNuevoUsr}
                             onSubmit={manejarEnvioNvo}

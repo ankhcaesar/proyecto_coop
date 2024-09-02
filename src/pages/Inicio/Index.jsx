@@ -6,37 +6,62 @@ import PopUp from "../../components/PopUp/Index"
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
-
+import CryptoJS from 'crypto-js';
+import db from "../../db/db"
 
 function Inicio() {
 
-
     const { setPnvoUsrOlvClv,
-
         usuarioIng, setUsuarioIng,
         contrasenaIng, setContrasenaIng,
-        limpiarInputIng,
-
+        limpiarInput,
+        limpiarPopUp,
         navigate,
 
-
-        popUp
+        popUp, setPopUp,
 
     } = useContext(GlobalContext)
 
     function manejarEnvio(e) {
         e.preventDefault();
 
-        let datosAEnviar = {
-            usuarioIng,
-            contrasenaIng
-        }
-        navigate("/menucompras")
-        /**aqui enviar datos login(datosAEnviar) */
-        limpiarInputIng();
 
+        // Buscar el usuario en la base de datos
+        db.usuarios.where('usuario').equals(usuarioIng).toArray().then(usuarios => {
+            if (usuarios.length > 0) {
+                const usuario = usuarios[0];
+                const hashIngresado = CryptoJS.SHA256(contrasenaIng + 16).toString();
+
+                if (hashIngresado === usuario.contrasena) {
+                    navigate("/menucompras");
+                } else {
+                    setPopUp({
+                        show: true,
+                        type: "error",
+                        message: "El usuario o la contraseña son incorrectos",
+                        from: "MSJ"
+                    });
+                    setTimeout(() => {
+                        limpiarPopUp(1);
+                    }, 3000);
+                }
+            } else {
+                setPopUp({
+                    show: true,
+                    type: "error",
+                    message: "El usuario ingresado es incorrecto",
+                    from: "MSJ"
+                });
+                setTimeout(() => {
+                    limpiarPopUp(1);
+                }, 3000);
+            }
+
+        });
+
+
+        limpiarInput();
     }
-
 
     return (
         <section className={styles.containerPrincipal}>
@@ -90,8 +115,9 @@ function Inicio() {
                     </Link>
                 </div>
             </div>
-
+            {popUp.show && <PopUp message={popUp.message} type={popUp.type} zeIndex={popUp.zeIndex} from={popUp.from} />}
         </section>
+
     )
 }
 export default Inicio

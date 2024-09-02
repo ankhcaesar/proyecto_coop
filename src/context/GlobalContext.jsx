@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import CryptoJS from 'crypto-js';
 import db from "../db/db"
 
 /**errores formularios no usado aun
@@ -81,7 +82,7 @@ const initialState = {
 
 
 function GlobalContextProvider({ children }) {
-/**para la navegacion interna */
+    /**para la navegacion interna */
     const navigate = useNavigate();
 
     /**base de datos */
@@ -188,6 +189,7 @@ function GlobalContextProvider({ children }) {
     /**Nuevo usuario o cambiar clave*/
 
 
+
     /**crear usuario */
     const crearUsuario = async (datosAEnviar) => {
         let idnuevo = self.crypto.randomUUID();
@@ -199,7 +201,7 @@ function GlobalContextProvider({ children }) {
             whatsapp: datosAEnviar.whatsapp,
             email: datosAEnviar.email,
             usuario: datosAEnviar.usuario,
-            contrasena: datosAEnviar.contrasena,
+            contrasena: datosAEnviar.contrasena1,
             permiso: permisoprovisorio
         }
 
@@ -254,10 +256,7 @@ function GlobalContextProvider({ children }) {
     const [permiso, setPermiso] = useState("")
 
 
-    /** limpiar imputs */
-
-
-
+    /** limpiar imputs revisarlo*/
     const limpiarInput = () => {
         setNombreyapellido("");
         setCurso("");
@@ -266,7 +265,7 @@ function GlobalContextProvider({ children }) {
         setUsuario("");
         setContrasena("");
     };
-
+    /** limpiar imputs */
 
     /** estado pagina nuevo usuario*/
     const [pnvoUsrOlvClv, setPnvoUsrOlvClv] = useState();
@@ -306,6 +305,7 @@ function GlobalContextProvider({ children }) {
 
                 limpiarInput,
 
+
                 pnvoUsrOlvClv, setPnvoUsrOlvClv,
 
                 popUp, setPopUp,
@@ -323,6 +323,7 @@ function GlobalContextProvider({ children }) {
                 permiso, setPermiso,
 
                 navigate,
+
 
                 state, dispatch
 
