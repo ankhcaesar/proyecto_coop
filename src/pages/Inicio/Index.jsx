@@ -49,7 +49,7 @@ function Inicio() {
                 setPopUp({
                     show: true,
                     type: "error",
-                    message: "El usuario ingresado es incorrecto",
+                    message: "El usuario es incorrecto",
                     from: "MSJ"
                 });
                 setTimeout(() => {
