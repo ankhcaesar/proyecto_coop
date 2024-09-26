@@ -9,6 +9,7 @@ function Home() {
             <GlobalContextProvider>
                 <Container>
                     <Outlet />
+                  
                 </Container>
             </GlobalContextProvider>
         </main>
